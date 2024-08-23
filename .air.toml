@@ -1,0 +1,9 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+    bin = "tmp/main"
+    cmd = "go build -o ./tmp/main ./cmd/server/main.go"
+    include_ext = ["go", "tpl", "tmpl", "html"]
+    exclude_dir = ["tmp", "vendor", "specification"]
+    exclude_regex = ["_test\\.go"]
