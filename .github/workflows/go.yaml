@@ -1,0 +1,21 @@
+name: go check
+
+on:
+  pull_request:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+      - run: go build cmd/server
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+      - run: go vet ./...
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3

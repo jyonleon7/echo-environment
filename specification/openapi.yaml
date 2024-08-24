@@ -1,0 +1,66 @@
+openapi: "3.0.0"
+info:
+  version: 0.0.1
+  title: echo-environment
+servers:
+  - url: http://localhost:8080
+paths:
+  /ping:
+    get:
+      summary: health check endpoint
+      operationId: ping
+      responses:
+        '200':
+          description: OK
+          content:
+            plain/text:
+              schema:
+                type: string
+                example: pong
+  /validate:
+    post:
+      summary: validate test
+      operationId: validate
+      requestBody:
+        $ref: '#/components/requestBodies/ValidateBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            plain/text:
+              schema:
+                type: string
+                example: ok
+        '400':
+          description: Bad Request
+          content:
+            plain/text:
+              schema:
+                type: string
+                example:
+
+components:
+  requestBodies:
+    ValidateBody:
+      description: test validation body
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TestValid'
+
+  schemas:
+    TestValid:
+      type: object
+      properties:
+        width:
+          type: integer
+          minimum: 5
+          maximum: 10
+        title:
+          type: string
+          maxLength: 100
+          minLength: 3
+      required:
+        - width
+        - title
